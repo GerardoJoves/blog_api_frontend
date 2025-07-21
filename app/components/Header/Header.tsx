@@ -1,4 +1,4 @@
-import Actions from './actions';
+import Actions from './Actions';
 import AuthNav from './AuthNav';
 import Logo from './Logo';
 import Nav from './Nav';
