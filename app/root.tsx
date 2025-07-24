@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -9,6 +10,7 @@ import {
 
 import type { Route } from './+types/root';
 import './app.css';
+import ThemeContext from './components/ThemeContext';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -23,20 +25,30 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+type ThemeType = 'light' | 'dark';
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<ThemeType>('light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <html lang="en">
+    <html lang="en" className={theme === 'dark' ? 'dark' : undefined}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
+      <ThemeContext value={{ theme, toggleTheme }}>
+        <body>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </ThemeContext>
     </html>
   );
 }

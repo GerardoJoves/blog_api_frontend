@@ -16,16 +16,16 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`flex flex-col justify-between mt-[79px] pb-[79px] left-0 top-0 w-full h-full dark:bg-gray-950 md:hidden ${isOpen ? 'fixed' : 'hidden'}`}
+        className={`${isOpen ? 'fixed' : 'hidden'} flex flex-col justify-between mt-[79px] pb-[79px] left-0 top-0 w-full h-full bg-white dark:bg-gray-950 md:hidden`}
       >
         <nav className="flex flex-col place-content-between">
           <ul>
-            <li className="px-6 border-b border-gray-800">
+            <li className="px-6 border-b border-gray-300 dark:border-gray-800">
               <Link to="/">
                 <div className="h-16 flex items-center">Home</div>
               </Link>
             </li>
-            <li className="px-6 border-b border-gray-800">
+            <li className="px-6 border-b border-gray-300 dark:border-gray-800">
               <Link to="/categories">
                 <div className="h-16 flex items-center">Categories</div>
               </Link>
@@ -44,7 +44,7 @@ export default function MobileMenu() {
             </li>
             <li className="px-6">
               <Link to="/signup">
-                <div className="h-12 flex items-center justify-center sm:px-30 bg-sky-600 rounded-lg">
+                <div className="h-12 flex items-center justify-center sm:px-30 bg-sky-300 dark:bg-sky-600 rounded-lg">
                   Sign Up
                 </div>
               </Link>

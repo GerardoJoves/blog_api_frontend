@@ -11,7 +11,7 @@ export default function AuthNav() {
         </li>
         <li>
           <Link to="/signup">
-            <div className="h-12 px-5 flex items-center bg-sky-600 rounded-lg">
+            <div className="h-12 px-5 flex items-center bg-sky-300 dark:bg-sky-600 rounded-lg">
               Sign Up
             </div>
           </Link>
