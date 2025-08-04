@@ -6,7 +6,7 @@ import MobileMenu from './MobileMenu';
 
 export default function Header() {
   return (
-    <header className="flex h-[80px] px-6 xl:px-18 border-b border-gray-300 dark:border-gray-800">
+    <header className="flex h-[80px] px-6 xl:px-18 border-b border-neutral-400 dark:border-gray-700">
       <div className="flex items-center gap-12">
         <Logo />
         <div className="hidden md:block">
