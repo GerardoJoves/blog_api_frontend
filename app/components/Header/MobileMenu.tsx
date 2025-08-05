@@ -16,7 +16,7 @@ export default function MobileMenu() {
       </button>
 
       <div
-        className={`${isOpen ? 'fixed' : 'hidden'} flex flex-col justify-between mt-[79px] pb-[79px] left-0 top-0 w-full h-full bg-white dark:bg-gray-950 md:hidden`}
+        className={`${isOpen ? 'fixed' : 'hidden'} z-50 flex flex-col justify-between mt-[79px] pb-[79px] left-0 top-0 w-full h-full bg-white dark:bg-gray-950 md:hidden`}
       >
         <nav className="flex flex-col place-content-between">
           <ul>

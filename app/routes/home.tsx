@@ -1,11 +1,10 @@
-import { Welcome } from '../welcome/welcome';
+import Hero from '../components/Hero';
 
 export default function Home() {
   return (
     <>
-      <title>New React Router App</title>
-      <meta name="description" content="Welcome to React Router" />
-      <Welcome />
+      <title>Thought Flow</title>
+      <Hero />
     </>
   );
 }
