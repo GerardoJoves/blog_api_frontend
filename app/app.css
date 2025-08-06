@@ -10,5 +10,5 @@
 
 html,
 body {
-  @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-200;
+  @apply bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200;
 }
