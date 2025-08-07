@@ -11,7 +11,7 @@ export default function Hero() {
           Welcome to my personal blog!
         </p>
         <p className="text-center text-white text-base md:text-xl">
-          A subtitle or placeholder message about the blog's content.
+          Exploring the world of web development, one line of code at a time.
         </p>
       </div>
       <p className="text-xs text-white absolute bottom-1 left-1">
