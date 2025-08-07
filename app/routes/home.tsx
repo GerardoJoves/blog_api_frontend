@@ -1,4 +1,5 @@
-import { useLoaderData } from 'react-router';
+import { useLoaderData, Link } from 'react-router';
+import { ChevronRight } from 'lucide-react';
 
 import PostsContainer from '~/components/PostsContainer';
 import Hero from '../components/Hero';
@@ -19,7 +20,15 @@ export default function Home() {
       <title>Thought Flow</title>
       <Hero />
       <main className="px-4 sm:px-10 lg:px-14">
-        <h1 className="text-2xl font-bold mt-12 mb-8">Recent Posts</h1>
+        <div className="flex justify-between items-center mt-12 mb-8">
+          <h1 className="text-2xl font-bold">Recent Posts</h1>
+          <Link to="/posts">
+            <div className="flex gap-1 items-center text-sm md:text-base hover:underline">
+              <span>View all posts</span>
+              <ChevronRight size={18} />
+            </div>
+          </Link>
+        </div>
         <PostsContainer posts={latestPosts} />
       </main>
     </>
