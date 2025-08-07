@@ -20,12 +20,12 @@ export default function MobileMenu() {
       >
         <nav className="flex flex-col place-content-between">
           <ul>
-            <li className="px-6 border-b border-gray-300 dark:border-gray-800">
+            <li className="px-4 sm:px-10 border-b border-gray-300 dark:border-gray-800">
               <Link to="/">
                 <div className="h-16 flex items-center">Home</div>
               </Link>
             </li>
-            <li className="px-6 border-b border-gray-300 dark:border-gray-800">
+            <li className="px-4 sm:px-10 border-b border-gray-300 dark:border-gray-800">
               <Link to="/categories">
                 <div className="h-16 flex items-center">Categories</div>
               </Link>
