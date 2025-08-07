@@ -18,9 +18,11 @@ export default function Home() {
   return (
     <>
       <title>Thought Flow</title>
-      <Hero />
-      <main className="px-4 sm:px-10 lg:px-14">
-        <div className="flex justify-between items-center mt-12 mb-8">
+      <div className="mb-20">
+        <Hero />
+      </div>
+      <main className="px-4 sm:px-10 lg:px-14 mb-20">
+        <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold">Recent Posts</h1>
           <Link to="/posts">
             <div className="flex gap-1 items-center text-sm sm:text-base hover:underline">
