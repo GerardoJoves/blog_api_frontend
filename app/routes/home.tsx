@@ -7,8 +7,8 @@ import Hero from '../components/Hero';
 import type { PostsResponse } from '~/types/Post';
 
 export async function loader() {
-  const baseUrl = import.meta.env.VITE_APP_API_URL;
-  const res = await fetch(baseUrl + '/posts?sort=desc_created&limit=3');
+  const apiUrl = import.meta.env.VITE_APP_API_URL;
+  const res = await fetch(apiUrl + '/posts?sort=desc_created&limit=3');
   const data: PostsResponse = await res.json();
   return { latestPosts: data.posts };
 }
