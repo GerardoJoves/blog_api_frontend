@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <ThemeContext value={{ theme, toggleTheme }}>
-        <body>
+        <body className="h-dvh grid grid-rows-[auto_1fr_auto]">
           {children}
           <ScrollRestoration />
           <Scripts />
