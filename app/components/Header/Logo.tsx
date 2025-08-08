@@ -6,7 +6,7 @@ export default function Logo() {
     <Link to="/">
       <div className="h-12 flex items-center gap-2">
         <LaptopMinimal size={28} />
-        <div className="text-xl font-bold tracking-wide">Blogging</div>
+        <div className="text-xl font-bold tracking-wide">DevBlog</div>
       </div>
     </Link>
   );
