@@ -1,4 +1,4 @@
-import { Braces, CodeXml } from 'lucide-react';
+import { Database, CodeXml } from 'lucide-react';
 
 export default function SourceCode() {
   return (
@@ -16,7 +16,7 @@ export default function SourceCode() {
           </a>
         </li>
         <li className="flex items-center gap-2 mb-2">
-          <Braces size={20} />
+          <Database size={20} />
           <a
             href="https://github.com/GerardoJoves/blog_api_backend"
             target="_blank"
