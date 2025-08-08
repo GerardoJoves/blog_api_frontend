@@ -1,23 +1,24 @@
-import { useLoaderData, Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
+import type { Route } from './+types/home';
+import { Link } from 'react-router';
 
 import PostsContainer from '~/components/PostsContainer';
 import Hero from '../components/Hero';
-import type { Post } from '~/types/Post';
+import type { PostsResponse } from '~/types/Post';
 
 export async function loader() {
   const baseUrl = import.meta.env.VITE_APP_API_URL;
   const res = await fetch(baseUrl + '/posts?sort=desc_created&limit=3');
-  const { posts } = await res.json();
-  return { latestPosts: posts };
+  const data: PostsResponse = await res.json();
+  return { latestPosts: data.posts };
 }
 
-export default function Home() {
-  const { latestPosts } = useLoaderData<{ latestPosts: Post[] }>();
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { latestPosts } = loaderData;
 
   return (
     <>
-      <title>Thought Flow</title>
+      <title>Blogging</title>
       <div className="mb-20">
         <Hero />
       </div>

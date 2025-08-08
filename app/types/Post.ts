@@ -8,3 +8,10 @@ export interface Post {
   authorId: number;
   author: { username: string };
 }
+
+export interface PostsResponse {
+  posts: Post[];
+  page: number;
+  pageSize: number;
+  totalPosts: number;
+}
