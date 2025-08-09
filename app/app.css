@@ -6,6 +6,7 @@
   --font-sans:
     'Roboto Condensed', ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --shadow-3xl: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 html,
