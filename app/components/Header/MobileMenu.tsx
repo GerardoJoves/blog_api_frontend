@@ -26,8 +26,8 @@ export default function MobileMenu() {
               </Link>
             </li>
             <li className="px-4 sm:px-10 border-b border-gray-300 dark:border-gray-800">
-              <Link to="/categories">
-                <div className="h-16 flex items-center">Categories</div>
+              <Link to="/posts">
+                <div className="h-16 flex items-center">Posts</div>
               </Link>
             </li>
           </ul>

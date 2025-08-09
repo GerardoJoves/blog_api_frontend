@@ -10,8 +10,8 @@ export default function Nav() {
           </Link>
         </li>
         <li>
-          <Link to="/categories">
-            <div className="h-12 px-3 flex items-center">Categories</div>
+          <Link to="/posts">
+            <div className="h-12 px-3 flex items-center">Posts</div>
           </Link>
         </li>
       </ul>
