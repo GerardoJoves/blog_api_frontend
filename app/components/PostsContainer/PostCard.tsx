@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import type { Post } from '~/types/Post';
 
 export default function PostCard({ post }: { post: Post }) {
-  const trimmedContent = post.content.substring(0, 150) + '...';
+  const contentPreview = post.content.substring(0, 150) + '...';
   const dateCreated = new Date(post.createdAt);
   const postPath = `/posts/${post.id}`;
 
@@ -35,7 +35,7 @@ export default function PostCard({ post }: { post: Post }) {
           <h3 className="text-xl font-bold mb-4">{post.title}</h3>
         </Link>
         <p className="text-gray-700 dark:dark:text-gray-400">
-          {trimmedContent}
+          {contentPreview}
         </p>
       </div>
     </div>
