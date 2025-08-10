@@ -18,14 +18,14 @@ export default function PostCard({ post }: { post: Post }) {
           alt="featured image"
         />
       </Link>
-      <div className="flex gap-2 mb-2 text-gray-700 dark:dark:text-gray-400">
-        <div className="flex grow items-center gap-1">
+      <div className="flex flex-wrap mb-2 text-gray-700 dark:dark:text-gray-400">
+        <div className="flex items-center gap-1 mr-4">
           <Clock4 size={15} />
           <time dateTime={String(dateCreated)}>
             {format(dateCreated, 'MM-dd-yyy')}
           </time>
         </div>
-        <div className="flex grow items-center gap-1">
+        <div className="flex items-center gap-1">
           <User size={15} />
           <span>{post.author.username}</span>
         </div>
