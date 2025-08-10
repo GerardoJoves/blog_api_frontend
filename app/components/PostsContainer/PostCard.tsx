@@ -7,10 +7,11 @@ import type { Post } from '~/types/Post';
 export default function PostCard({ post }: { post: Post }) {
   const trimmedContent = post.content.substring(0, 150) + '...';
   const dateCreated = new Date(post.createdAt);
+  const postPath = `/posts/${post.id}`;
 
   return (
     <div className="p-4 border rounded-lg border-neutral-400 dark:border-gray-700">
-      <Link to={`/post/${post.id}`}>
+      <Link to={postPath}>
         <img
           className="rounded-lg mb-2"
           src="/default_featured_image.jpg"
@@ -30,7 +31,7 @@ export default function PostCard({ post }: { post: Post }) {
         </div>
       </div>
       <div>
-        <Link to={`/post/${post.id}`}>
+        <Link to={postPath}>
           <h3 className="text-xl font-bold mb-4">{post.title}</h3>
         </Link>
         <p className="text-gray-700 dark:dark:text-gray-400">
