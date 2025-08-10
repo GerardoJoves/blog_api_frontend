@@ -27,10 +27,7 @@ export default function NavDropdown({ options }: NavDropdownProps) {
       toggleContent={
         <div className="flex items-center justify-between px-3 py-1 border rounded border-neutral-400 dark:border-gray-700 dark:bg-gray-800">
           {activeOption?.name}
-          <ChevronDown
-            size={16}
-            className="text-gray-700 dark:dark:text-gray-400"
-          />
+          <ChevronDown size={16} className="text-gray-700 dark:text-gray-400" />
         </div>
       }
     >

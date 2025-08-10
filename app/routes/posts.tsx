@@ -1,29 +1,56 @@
 import type { Route } from './+types/posts';
 
 import PostsContainer from '~/components/PostsContainer';
-import type { PostsResponse } from '~/types/Post';
 import NavDropdown from '~/components/NavDropdown';
+import PaginationControl from '~/components/PaginationControl';
+import type { PostsResponse } from '~/types/Post';
+import type { Page } from '~/components/PaginationControl';
+
+type SortOption = 'asc_created' | 'desc_created';
 
 export async function loader({ request }: Route.ClientActionArgs) {
   const url = new URL(request.url);
+  const sortParam = url.searchParams.get('sort');
+  const pageParam = url.searchParams.get('page');
+
+  const sort: SortOption =
+    sortParam === 'asc_created' ? 'asc_created' : 'desc_created';
+  let page = Number(pageParam);
+  if (isNaN(page) || page < 1) page = 1;
+
   const apiUrl = import.meta.env.VITE_APP_API_URL;
-  const sort: 'asc_created' | 'desc_created' =
-    url.searchParams.get('sort') === 'oldest' ? 'asc_created' : 'desc_created';
-  const res = await fetch(apiUrl + `/posts?sort=${sort}&limit=9`);
+  const res = await fetch(apiUrl + `/posts?limit=9&sort=${sort}&page=${page}`);
   const data: PostsResponse = await res.json();
-  return { posts: data.posts, sort };
+  return { ...data, sort };
 }
 
 export default function posts({ loaderData }: Route.ComponentProps) {
-  const { posts, sort } = loaderData;
+  const { posts, sort, page: currPage, pageSize, totalPosts } = loaderData;
+
   const sortOptions = [
-    { name: 'Newest', path: '/posts', isActive: sort === 'desc_created' },
+    {
+      name: 'Newest',
+      path: '/posts',
+      isActive: sort === 'desc_created',
+    },
     {
       name: 'Oldest',
-      path: '/posts?sort=oldest',
+      path: '/posts?sort=asc_created',
       isActive: sort === 'asc_created',
     },
   ];
+
+  const totalPages = Math.ceil(totalPosts / pageSize);
+  const pages: Page[] = [];
+  for (let i = currPage - 2; i <= currPage + 2; i++) {
+    if (i < 1 || i > totalPages) continue;
+    const page = {
+      num: i,
+      path: `/posts?${sort === 'asc_created' ? `sort=${sort}&` : ''}page=${i}`,
+      isActive: i === currPage,
+    };
+    pages.push(page);
+  }
 
   return (
     <>
@@ -40,6 +67,11 @@ export default function posts({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
         <PostsContainer posts={posts} />
+        {pages.length > 1 && (
+          <div className="flex justify-center mt-10">
+            <PaginationControl pages={pages} />
+          </div>
+        )}
       </div>
     </>
   );
