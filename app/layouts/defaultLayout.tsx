@@ -7,7 +7,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main className="w-full max-w-7xl mx-auto">
         <Outlet />
       </main>
       <Footer />

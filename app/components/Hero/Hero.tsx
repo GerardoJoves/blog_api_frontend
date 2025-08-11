@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <div className="h-[80dvh] relative">
+    <div className="relative h-[80dvh] max-h-200 max-w-7xl mx-auto">
       <img
         src="/lines_of_code.jpg"
         alt="Hero Image"
