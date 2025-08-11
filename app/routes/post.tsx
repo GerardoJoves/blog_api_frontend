@@ -20,24 +20,16 @@ export default function Post({ loaderData }: Route.ComponentProps) {
     <>
       <title>{post.title}</title>
 
-      <div className="mt-10">
-        <div className="px-4 sm:px-10 lg:px-14">
+      <div className="mt-10 mb-20 px-4">
+        <div className="max-w-prose mx-auto lg:text-lg leading-relaxed">
           <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
           <div className="mb-4">
             <PostMeta post={post} />
           </div>
-        </div>
-        <div className="mb-10 sm:px-10 lg:px-14">
-          <img
-            src="/default_featured_image.jpg"
-            alt="featured image"
-            className="object-cover max-h-[80vh] w-full sm:rounded-lg"
-          />
-        </div>
-        <div className="mb-20 px-4 sm:px-10 lg:px-14">
-          <div className="max-w-prose mx-auto lg:text-lg leading-relaxed">
-            {post.content}
+          <div className="mb-10 rounded-lg overflow-hidden">
+            <img src="/default_featured_image.jpg" alt="featured image" />
           </div>
+          <div>{post.content}</div>
         </div>
       </div>
     </>
