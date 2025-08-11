@@ -9,5 +9,6 @@ export default [
   layout('layouts/defaultLayout.tsx', [
     index('routes/home.tsx'),
     route('/posts', 'routes/posts.tsx'),
+    route('/posts/:postId', 'routes/post.tsx'),
   ]),
 ] satisfies RouteConfig;
