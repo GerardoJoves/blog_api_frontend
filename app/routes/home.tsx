@@ -4,18 +4,19 @@ import { Link } from 'react-router';
 
 import PostsContainer from '~/components/PostsContainer';
 import Hero from '../components/Hero';
-import type { PostsResponse } from '~/types/Post';
+import { fetchPaginatedPosts } from '~/api';
 
 export async function loader() {
-  const apiUrl = import.meta.env.VITE_APP_API_URL;
-  const res = await fetch(apiUrl + '/posts?sort=desc_created&limit=3');
-  const data: PostsResponse = await res.json();
-  return { latestPosts: data.posts };
+  const { posts } = await fetchPaginatedPosts({
+    sort: 'desc_created',
+    limit: 3,
+  });
+  return posts;
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-  const { latestPosts } = loaderData;
-
+export default function Home({
+  loaderData: recentPosts,
+}: Route.ComponentProps) {
   return (
     <>
       <title>Blogging</title>
@@ -33,7 +34,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </div>
           </Link>
         </div>
-        <PostsContainer posts={latestPosts} />
+        <PostsContainer posts={recentPosts} />
       </div>
     </>
   );

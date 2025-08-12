@@ -1,15 +1,20 @@
 import { data } from 'react-router';
 import type { Route } from './+types/post';
+import * as z from 'zod';
 
 import type { Post } from '~/types/Post';
 import PostMeta from '~/components/PostMeta/PostMeta';
+import { fetchPost } from '~/api';
+
+const postIdParam = z
+  .string()
+  .transform((val) => Number(val))
+  .pipe(z.number().int().positive());
 
 export async function loader({ params }: Route.ClientActionArgs) {
-  const { postId } = params;
-  const apiUrl = import.meta.env.VITE_APP_API_URL;
-  const res = await fetch(apiUrl + `/posts/${postId}`);
-  if (!res.ok) throw data(res.status);
-  const post: Post = await res.json();
+  const { data: postId, success } = postIdParam.safeParse(params.postId);
+  if (!success) throw data('Bad Request', { status: 400 });
+  const post = await fetchPost({ postId });
   return { post };
 }
 

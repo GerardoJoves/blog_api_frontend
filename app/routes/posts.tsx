@@ -1,27 +1,35 @@
+import * as z from 'zod';
 import type { Route } from './+types/posts';
+import { data } from 'react-router';
 
 import PostsContainer from '~/components/PostsContainer';
 import NavDropdown from '~/components/NavDropdown';
 import PaginationControl from '~/components/PaginationControl';
-import type { PostsResponse } from '~/types/Post';
 import type { Page } from '~/components/PaginationControl';
+import { fetchPaginatedPosts } from '~/api';
 
-type SortOption = 'asc_created' | 'desc_created';
+const searchParamsSchema = z.object({
+  limit: z
+    .string()
+    .transform((val) => Number(val))
+    .pipe(z.number().int().positive())
+    .optional(),
+  page: z
+    .string()
+    .transform((val) => Number(val))
+    .pipe(z.number().int().positive())
+    .optional(),
+  sort: z.enum(['desc_created', 'asc_created']).default('desc_created'),
+});
 
 export async function loader({ request }: Route.ClientActionArgs) {
   const url = new URL(request.url);
-  const sortParam = url.searchParams.get('sort');
-  const pageParam = url.searchParams.get('page');
-
-  const sort: SortOption =
-    sortParam === 'asc_created' ? 'asc_created' : 'desc_created';
-  let page = Number(pageParam);
-  if (isNaN(page) || page < 1) page = 1;
-
-  const apiUrl = import.meta.env.VITE_APP_API_URL;
-  const res = await fetch(apiUrl + `/posts?limit=9&sort=${sort}&page=${page}`);
-  const data: PostsResponse = await res.json();
-  return { ...data, sort };
+  const rawParams = Object.fromEntries(url.searchParams);
+  const result = searchParamsSchema.safeParse(rawParams);
+  if (!result.success) throw data('Bad Request', { status: 400 });
+  const params = result.data;
+  const paginatedPosts = await fetchPaginatedPosts(params);
+  return { ...paginatedPosts, sort: params.sort };
 }
 
 export default function posts({ loaderData }: Route.ComponentProps) {
