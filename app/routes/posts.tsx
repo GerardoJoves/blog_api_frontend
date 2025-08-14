@@ -6,7 +6,7 @@ import PostsContainer from '~/components/PostsContainer';
 import NavDropdown from '~/components/NavDropdown';
 import PaginationControl from '~/components/PaginationControl';
 import type { Page } from '~/components/PaginationControl';
-import { fetchPaginatedPosts } from '~/api';
+import { fetchPaginatedPosts } from '~/api/post';
 
 const searchParamsSchema = z.object({
   limit: z

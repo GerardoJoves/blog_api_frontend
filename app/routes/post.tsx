@@ -4,7 +4,7 @@ import * as z from 'zod';
 
 import type { Post } from '~/types/Post';
 import PostMeta from '~/components/PostMeta/PostMeta';
-import { fetchPost } from '~/api';
+import { fetchPost } from '~/api/post';
 
 const postIdParam = z
   .string()

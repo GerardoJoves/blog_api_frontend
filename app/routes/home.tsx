@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import PostsContainer from '~/components/PostsContainer';
 import Hero from '../components/Hero';
-import { fetchPaginatedPosts } from '~/api';
+import { fetchPaginatedPosts } from '~/api/post';
 
 export async function loader() {
   const { posts } = await fetchPaginatedPosts({
