@@ -5,6 +5,7 @@ import * as z from 'zod';
 import type { Post } from '~/types/Post';
 import PostMeta from '~/components/PostMeta/PostMeta';
 import { fetchPost } from '~/api/post';
+import CommentSection from '~/components/CommentSection';
 
 const postIdParam = z
   .string()
@@ -26,7 +27,7 @@ export default function Post({ loaderData }: Route.ComponentProps) {
       <title>{post.title}</title>
 
       <div className="mt-10 mb-20 px-4">
-        <div className="max-w-prose mx-auto lg:text-lg leading-relaxed">
+        <div className="max-w-prose mx-auto leading-relaxed">
           <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
           <div className="mb-4">
             <PostMeta post={post} />
@@ -34,7 +35,9 @@ export default function Post({ loaderData }: Route.ComponentProps) {
           <div className="mb-10 rounded-lg overflow-hidden">
             <img src="/default_featured_image.jpg" alt="featured image" />
           </div>
-          <div>{post.content}</div>
+          <div className="mb-10 lg:text-lg">{post.content}</div>
+          <h2 className="mb-8 text-xl font-bold">Comments</h2>
+          <CommentSection postId={post.id} />
         </div>
       </div>
     </>
