@@ -32,7 +32,7 @@ export async function loader({ request }: Route.ClientActionArgs) {
   return { ...paginatedPosts, sort: params.sort };
 }
 
-export default function posts({ loaderData }: Route.ComponentProps) {
+export default function Posts({ loaderData }: Route.ComponentProps) {
   const { posts, sort, page: currPage, pageSize, totalPosts } = loaderData;
 
   const sortOptions = [
