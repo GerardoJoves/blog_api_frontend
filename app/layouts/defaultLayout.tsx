@@ -31,7 +31,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function DefaultLayout({
   loaderData: { user },
 }: Route.ComponentProps) {
-  console.log(user);
   return (
     <>
       <UserContext value={{ user }}>
