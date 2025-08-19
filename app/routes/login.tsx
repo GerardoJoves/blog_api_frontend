@@ -1,37 +1,21 @@
 import * as z from 'zod';
-import { Link, useFetcher, data, redirect } from 'react-router';
+import { data, Link, useFetcher, redirect } from 'react-router';
 import jwt from 'jsonwebtoken';
-import type { Route } from './+types/signup';
+import type { Route } from './+types/login';
 
 import Logo from '~/components/Logo';
-import { createUser } from '~/api/user';
+import { loginResponseSchema, userTokenPayloadSchema } from '~/types/User';
+import { login } from '~/api/user';
 import { tokenCookie } from '~/cookies.server';
-import { signupResponseSchema, userTokenPayloadSchema } from '~/types/User';
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const values = Object.fromEntries(formData);
   const username = z.string().parse(values.username);
   const password = z.string().parse(values.password);
-  const confirmPassword = z.string().parse(values['confirm-password']);
 
-  if (password !== confirmPassword) {
-    return data(
-      { errors: { confirmPassword: 'Password does not match.' } },
-      { status: 400 },
-    );
-  }
-
-  const res = signupResponseSchema.parse(
-    await createUser({ username, password }),
-  );
-  if ('error' in res) {
-    const { username, password } = res.detail;
-    return data(
-      { errors: { username: username?.msg, password: password?.msg } },
-      { status: 400 },
-    );
-  }
+  const res = loginResponseSchema.parse(await login({ username, password }));
+  if ('error' in res) return data(res);
 
   const { token } = res.data;
   const payload = userTokenPayloadSchema.parse(jwt.decode(token));
@@ -43,7 +27,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function Signup() {
   const fetcher = useFetcher();
-  const errors = fetcher.data?.errors;
+  const error = fetcher.data?.error;
 
   return (
     <div>
@@ -56,6 +40,11 @@ export default function Signup() {
             <h1 className="text-lg font-blod leading-tight tracking-tight md:text-xl">
               Create an account
             </h1>
+            {error && (
+              <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
+                Invalid username or password
+              </em>
+            )}
             <fetcher.Form method="post" className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="username" className="block mb-2">
@@ -68,11 +57,6 @@ export default function Signup() {
                   className="input"
                   required
                 />
-                {errors?.username && (
-                  <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
-                    {errors.username}
-                  </em>
-                )}
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2">
@@ -87,41 +71,17 @@ export default function Signup() {
                   autoComplete="new-password"
                   required
                 />
-                {errors?.password && (
-                  <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
-                    {errors.password}
-                  </em>
-                )}
-              </div>
-              <div>
-                <label htmlFor="confirm-password" className="block mb-2">
-                  Confirm password
-                </label>
-                <input
-                  id="confirm-password"
-                  type="password"
-                  name="confirm-password"
-                  className="input"
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  required
-                />
-                {errors?.confirmPassword && (
-                  <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
-                    {errors.confirmPassword}
-                  </em>
-                )}
               </div>
               <button
                 type="submit"
                 className="w-full text-white bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 hover:dark:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center"
               >
-                Create account
+                Login
               </button>
               <p className="text-sm font-light text-gray-700 dark:dark:text-gray-400">
-                Already have an account?{' '}
+                Don't have an account?{' '}
                 <Link to="/login" className="hover:underline text-blue-700">
-                  Log in
+                  Sign up here
                 </Link>
               </p>
             </fetcher.Form>

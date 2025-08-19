@@ -10,4 +10,28 @@ export const userTokenPayloadSchema = z.object({
   exp: z.number().transform((val) => new Date(val)),
 });
 
+export const successfulAuthResponseSchema = z.object({
+  message: z.string(),
+  data: z.object({ token: z.jwt() }),
+});
+
+export const signupErrorResponse = z.object({
+  type: z.string(),
+  error: z.string(),
+  detail: z.object({
+    password: z.object({ msg: z.string() }).optional(),
+    username: z.object({ msg: z.string() }).optional(),
+  }),
+});
+
+export const signupResponseSchema = z.union([
+  successfulAuthResponseSchema,
+  signupErrorResponse,
+]);
+
+export const loginResponseSchema = z.union([
+  successfulAuthResponseSchema,
+  z.object({ error: z.string(), status: z.number() }),
+]);
+
 export type UserTokenPayload = z.infer<typeof userTokenPayloadSchema>;
