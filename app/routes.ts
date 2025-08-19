@@ -16,4 +16,5 @@ export default [
     ]),
     route('/comments/:commentId/replies', 'routes/commentReplies.tsx'),
   ]),
+  route('/signup', 'routes/signup.tsx'),
 ] satisfies RouteConfig;

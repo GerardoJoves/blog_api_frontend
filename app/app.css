@@ -13,3 +13,13 @@ html,
 body {
   @apply bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200;
 }
+
+@layer components {
+  .input {
+    @apply border border-b border-neutral-400 dark:border-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5;
+  }
+}
+
+input[type='password']::-ms-reveal {
+  display: none;
+}
