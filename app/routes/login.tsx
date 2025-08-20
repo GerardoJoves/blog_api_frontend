@@ -80,7 +80,7 @@ export default function Signup() {
               </button>
               <p className="text-sm font-light text-gray-700 dark:dark:text-gray-400">
                 Don't have an account?{' '}
-                <Link to="/login" className="hover:underline text-blue-700">
+                <Link to="/signup" className="hover:underline text-blue-700">
                   Sign up here
                 </Link>
               </p>
