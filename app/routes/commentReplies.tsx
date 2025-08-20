@@ -16,7 +16,7 @@ const sortSchema = z
   .union([z.literal('asc_created'), z.literal('desc_created')])
   .optional();
 
-export async function loader({ params, request }: Route.ClientActionArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
   const requestUrl = new URL(request.url);
   const searchParams = Object.fromEntries(requestUrl.searchParams);
   const commentId = commentIdSchema.parse(params.commentId);

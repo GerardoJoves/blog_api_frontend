@@ -12,7 +12,7 @@ const postIdParam = z
   .transform((val) => Number(val))
   .pipe(z.number().int().positive());
 
-export async function loader({ params }: Route.ClientActionArgs) {
+export async function loader({ params }: Route.LoaderArgs) {
   const { data: postId, success } = postIdParam.safeParse(params.postId);
   if (!success) throw data('Bad Request', { status: 400 });
   const post = await fetchPost({ postId });

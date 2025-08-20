@@ -22,7 +22,7 @@ const searchParamsSchema = z.object({
   sort: z.enum(['desc_created', 'asc_created']).default('desc_created'),
 });
 
-export async function loader({ request }: Route.ClientActionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const rawParams = Object.fromEntries(url.searchParams);
   const result = searchParamsSchema.safeParse(rawParams);

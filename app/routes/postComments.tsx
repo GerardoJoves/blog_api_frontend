@@ -13,7 +13,7 @@ const cursorSchema = z
   .pipe(z.number().int().positive())
   .optional();
 
-export async function loader({ params, request }: Route.ClientActionArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
   const requestUrl = new URL(request.url);
   const searchParams = Object.fromEntries(requestUrl.searchParams);
   const postId = postIdSchema.parse(params.postId);

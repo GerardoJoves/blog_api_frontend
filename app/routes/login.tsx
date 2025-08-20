@@ -26,7 +26,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Signup() {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<typeof action>();
   const error = fetcher.data?.error;
 
   return (

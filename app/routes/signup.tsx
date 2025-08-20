@@ -42,7 +42,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Signup() {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<typeof action>();
   const errors = fetcher.data?.errors;
 
   return (
@@ -68,7 +68,7 @@ export default function Signup() {
                   className="input"
                   required
                 />
-                {errors?.username && (
+                {errors && 'username' in errors && (
                   <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
                     {errors.username}
                   </em>
@@ -87,7 +87,7 @@ export default function Signup() {
                   autoComplete="new-password"
                   required
                 />
-                {errors?.password && (
+                {errors && 'password' in errors && (
                   <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
                     {errors.password}
                   </em>
@@ -106,7 +106,7 @@ export default function Signup() {
                   autoComplete="new-password"
                   required
                 />
-                {errors?.confirmPassword && (
+                {errors && 'confirmPassword' in errors && (
                   <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
                     {errors.confirmPassword}
                   </em>
