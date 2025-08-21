@@ -26,7 +26,7 @@ export default function Post({ loaderData }: Route.ComponentProps) {
     <>
       <title>{post.title}</title>
 
-      <div className="mt-10 mb-20 px-4">
+      <div className="mt-10 mb-20 px-2">
         <div className="max-w-prose mx-auto leading-relaxed">
           <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
           <div className="mb-4">

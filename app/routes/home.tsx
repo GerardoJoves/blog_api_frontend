@@ -24,7 +24,7 @@ export default function Home({
       <div className="mb-20">
         <Hero />
       </div>
-      <div className="px-4 sm:px-10 lg:px-14 mb-20">
+      <div className="px-2 sm:px-10 lg:px-14 mb-20">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold">Recent Posts</h1>
           <Link to="/posts">

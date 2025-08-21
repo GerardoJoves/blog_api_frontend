@@ -64,7 +64,7 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
     <>
       <title>All Posts</title>
 
-      <div className="px-4 sm:px-10 lg:px-14 my-20">
+      <div className="px-2 sm:px-10 lg:px-14 my-20">
         <div className="flex justify-between gap-6 flex-wrap mb-10">
           <h1 className="text-2xl font-bold w-max">All Posts</h1>
           <div className="flex gap-2 items-center">

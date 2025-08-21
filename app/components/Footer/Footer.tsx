@@ -7,7 +7,7 @@ import GithubDark from './icons/github_dark.svg?react';
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-400 dark:border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-14 pt-18">
+      <div className="max-w-7xl mx-auto px-2 sm:px-10 lg:px-14 pt-18">
         <div className="flex flex-wrap justify-between gap-x-14 gap-y-8">
           <div>
             <PoweredBy />
