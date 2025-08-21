@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import { Link, useFetcher, data, redirect } from 'react-router';
 import jwt from 'jsonwebtoken';
-import type { Route } from './+types/signup';
+import type { Route } from '../+types/signup';
 
 import Logo from '~/components/Logo';
 import { createUser } from '~/api/user';

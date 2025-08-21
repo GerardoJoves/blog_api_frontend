@@ -16,6 +16,6 @@ export default [
     ]),
     route('/comments/:commentId/replies', 'routes/commentReplies.tsx'),
   ]),
-  route('/signup', 'routes/signup.tsx'),
-  route('/login', 'routes/login.tsx'),
+  route('/signup', 'routes/auth/signup.tsx'),
+  route('/login', 'routes/auth/login.tsx'),
 ] satisfies RouteConfig;
