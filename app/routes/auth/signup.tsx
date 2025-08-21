@@ -7,6 +7,7 @@ import Logo from '~/components/Logo';
 import { createUser } from '~/api/user';
 import { tokenCookie } from '~/cookies.server';
 import { signupResponseSchema, userTokenPayloadSchema } from '~/types/User';
+import AuthFormSubmitBtn from '~/components/AuthFormSubmitBtn';
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
@@ -112,19 +113,14 @@ export default function Signup() {
                   </em>
                 )}
               </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 hover:dark:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center"
-              >
-                Create account
-              </button>
-              <p className="text-sm font-light text-gray-700 dark:dark:text-gray-400">
-                Already have an account?{' '}
-                <Link to="/login" className="hover:underline text-blue-700">
-                  Log in
-                </Link>
-              </p>
+              <AuthFormSubmitBtn>Create account</AuthFormSubmitBtn>
             </fetcher.Form>
+            <p className="text-sm font-light text-gray-700 dark:dark:text-gray-400">
+              Already have an account?{' '}
+              <Link to="/login" className="hover:underline text-blue-700">
+                Log in
+              </Link>
+            </p>
           </div>
         </div>
       </div>

@@ -21,8 +21,12 @@ export default function WrapperDropdown({
   const toggle = () => (isOpen ? handleClose() : handleOpen());
 
   return (
-    <div className="relative w-full" ref={dropDownRef}>
-      <button className="w-full" type="button" onClick={toggle}>
+    <div className="relative w-full flex" ref={dropDownRef}>
+      <button
+        className="w-full hover:cursor-pointer"
+        type="button"
+        onClick={toggle}
+      >
         {toggleContent}
       </button>
       {isOpen && (

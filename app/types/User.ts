@@ -2,6 +2,12 @@ import * as z from 'zod';
 
 export type UserRole = 'ADMIN' | 'USER';
 
+export type User = {
+  id: number;
+  username: string;
+  role: UserRole;
+};
+
 export const userTokenPayloadSchema = z.object({
   sub: z.number(),
   username: z.string(),

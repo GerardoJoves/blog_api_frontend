@@ -1,9 +1,7 @@
 import { createContext } from 'react';
 
-type UsecContextType = {
-  user?: { id: number; username: string; role: 'ADMIN' | 'USER' };
-};
+import { type User } from '~/types/User';
 
-const UserContext = createContext<UsecContextType>({});
+const UserContext = createContext<User | null>(null);
 
 export default UserContext;
