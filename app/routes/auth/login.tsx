@@ -38,7 +38,7 @@ export default function Signup() {
         <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 border border-neutral-400 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
             <h1 className="text-lg font-blod leading-tight tracking-tight md:text-xl">
-              Create an account
+              Sign in to your account
             </h1>
             {error && (
               <em className="mt-1 text-red-700 dark:text-red-500 text-xs">
