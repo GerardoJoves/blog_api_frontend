@@ -7,14 +7,16 @@ import type { PaginatedComments } from '~/types/Comment';
 
 type LoadMoreButtonProps = {
   children: ReactNode;
-  path: string;
+  context: { postId: number } | { parentId: number };
+  route: string;
   cursor: number;
   sort: 'desc_created' | 'asc_created';
 };
 
 export default function LoadMoreButton({
   children,
-  path,
+  context,
+  route,
   sort,
   cursor,
 }: LoadMoreButtonProps) {
@@ -22,8 +24,19 @@ export default function LoadMoreButton({
 
   const handleFetching = () => {
     if (state === 'loading') return;
-    const searchParams = `?cursor=${cursor}${sort ? `&sort=${sort}` : ''}`;
-    load(path + searchParams);
+
+    const params = [
+      ['sort', sort],
+      ['cursor', String(cursor)],
+    ];
+    if ('postId' in context) {
+      params.push(['postId', String(context.postId)]);
+    } else {
+      params.push(['parentId', String(context.parentId)]);
+    }
+
+    const searchParams = new URLSearchParams(params);
+    load(`${route}?${searchParams.toString()}`);
   };
 
   if (!data) {
@@ -39,13 +52,23 @@ export default function LoadMoreButton({
   }
 
   const { comments, hasMore, nextCursor } = data;
+  const parentId = 'parentId' in context ? context.parentId : null;
   return (
     <>
       {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        <Comment
+          key={comment.id}
+          comment={comment}
+          parentId={parentId || comment.id}
+        />
       ))}
       {hasMore && nextCursor && (
-        <LoadMoreButton path={path} cursor={nextCursor} sort={sort}>
+        <LoadMoreButton
+          route={route}
+          context={context}
+          cursor={nextCursor}
+          sort={sort}
+        >
           {children}
         </LoadMoreButton>
       )}

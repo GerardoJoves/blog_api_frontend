@@ -20,5 +20,14 @@ export const paginatedCommentsSchema = z.object({
   hasMore: z.boolean(),
 });
 
+export const createCommentResponseSchema = z.union([
+  z.object({ success: z.boolean() }),
+  z.object({
+    error: z.string(),
+    detail: z.object({ content: z.object({ msg: z.string() }) }),
+  }),
+]);
+
 export type Comment = z.infer<typeof commentSchema>;
 export type PaginatedComments = z.infer<typeof paginatedCommentsSchema>;
+export type CreateCommentResponse = z.infer<typeof createCommentResponseSchema>;

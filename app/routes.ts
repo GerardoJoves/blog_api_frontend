@@ -12,9 +12,8 @@ export default [
     ...prefix('/posts', [
       index('routes/posts.tsx'),
       route('/:postId', 'routes/post.tsx'),
-      route('/:postId/comments', 'routes/postComments.tsx'),
     ]),
-    route('/comments/:commentId/replies', 'routes/commentReplies.tsx'),
+    route('/comments', 'routes/comments.tsx'),
   ]),
   route('/signup', 'routes/auth/signup.tsx'),
   route('/login', 'routes/auth/login.tsx'),
