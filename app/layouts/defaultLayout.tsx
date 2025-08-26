@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 import type { Route } from './+types/defaultLayout';
 import jwt from 'jsonwebtoken';
 
@@ -25,7 +25,12 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigation = useNavigation();
   const { user } = loaderData;
+
+  useEffect(() => {
+    if (navigation.state !== 'idle') setIsMenuOpen(false);
+  }, [navigation.state]);
 
   useEffect(() => {
     const body = document.body;
