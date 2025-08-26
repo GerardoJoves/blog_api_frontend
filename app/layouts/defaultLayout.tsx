@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router';
 import type { Route } from './+types/defaultLayout';
 import jwt from 'jsonwebtoken';
@@ -7,6 +8,7 @@ import Footer from '../components/Footer';
 import { tokenCookie } from '~/cookies.server';
 import UserContext from '~/components/UserContext';
 import { userTokenPayloadSchema } from '~/types/User';
+import MobileMenu from '~/components/MobileMenu';
 
 export async function loader({ request }: Route.LoaderArgs) {
   let user = null;
@@ -21,18 +23,20 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { user };
 }
 
-export default function DefaultLayout({
-  loaderData: { user },
-}: Route.ComponentProps) {
+export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = loaderData;
+
   return (
-    <>
-      <UserContext value={user}>
-        <Header />
-        <main className="w-full max-w-7xl mx-auto">
-          <Outlet />
-        </main>
-        <Footer />
-      </UserContext>
-    </>
+    <UserContext value={user}>
+      <div className="sticky top-0 z-50">
+        <Header onToggleMenu={() => setIsMenuOpen(!isMenuOpen)} />
+        {isMenuOpen && <MobileMenu />}
+      </div>
+      <main className="w-full max-w-7xl mx-auto">
+        <Outlet />
+      </main>
+      <Footer />
+    </UserContext>
   );
 }

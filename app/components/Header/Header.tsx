@@ -2,12 +2,16 @@ import Actions from './Actions';
 import AuthNav from './AuthNav';
 import Logo from '../Logo';
 import Nav from './Nav';
-import MobileMenu from './MobileMenu';
+import { Menu } from 'lucide-react';
 
-export default function Header() {
+type HeaderProps = {
+  onToggleMenu: () => void;
+};
+
+export default function Header({ onToggleMenu }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-100 bg-white dark:bg-gray-950 border-b border-neutral-400 dark:border-gray-700">
-      <div className="flex px-2 sm:px-10 lg:px-14 max-w-7xl mx-auto h-[80px]">
+    <header className="bg-white dark:bg-gray-950 border-b border-neutral-400 dark:border-gray-700">
+      <div className="flex px-2 sm:px-10 lg:px-14 max-w-7xl mx-auto h-20">
         <div className="flex items-center gap-12">
           <Logo />
           <div className="hidden md:block">
@@ -19,7 +23,13 @@ export default function Header() {
           <div className="hidden md:block">
             <AuthNav />
           </div>
-          <MobileMenu />
+          <button
+            type="button"
+            onClick={onToggleMenu}
+            className="hover:cursor-pointer md:hidden"
+          >
+            <Menu />
+          </button>
         </div>
       </div>
     </header>
