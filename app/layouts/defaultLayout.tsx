@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 import type { Route } from './+types/defaultLayout';
 import jwt from 'jsonwebtoken';
@@ -26,6 +26,17 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = loaderData;
+
+  useEffect(() => {
+    const body = document.body;
+    if (isMenuOpen) {
+      body.classList.add('overflow-y-hidden');
+      body.classList.add('md:overflow-y-auto');
+    } else {
+      body.classList.remove('overflow-y-hidden');
+      body.classList.remove('md:overflowy-auto');
+    }
+  }, [isMenuOpen]);
 
   return (
     <UserContext value={user}>
