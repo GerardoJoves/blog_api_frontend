@@ -5,7 +5,7 @@ import UserContext from '../UserContext';
 
 export default function MobileMenu() {
   return (
-    <div className="fixed flex flex-col justify-between mt-20 pb-20 left-0 top-0 w-full h-full bg-white dark:bg-gray-950 md:hidden">
+    <div className="fixed flex flex-col justify-between pt-20 left-0 top-0 w-full h-full bg-white dark:bg-gray-950 md:hidden">
       <nav className="flex flex-col place-content-between">
         <ul>
           <li className="px-4 sm:px-10 border-b border-gray-300 dark:border-gray-800">

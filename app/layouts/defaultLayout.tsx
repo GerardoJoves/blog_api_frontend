@@ -45,8 +45,11 @@ export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
 
   return (
     <UserContext value={user}>
-      <div className="sticky top-0 z-50">
-        <Header onToggleMenu={() => setIsMenuOpen(!isMenuOpen)} />
+      <div className="sticky top-0 z-20">
+        <Header
+          onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
+          isMenuOpen={isMenuOpen}
+        />
         {isMenuOpen && <MobileMenu />}
       </div>
       <main className="w-full max-w-7xl mx-auto">
