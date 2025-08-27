@@ -1,8 +1,9 @@
 import { Search, X } from 'lucide-react';
-import { Link, useFetcher } from 'react-router';
+import { useFetcher } from 'react-router';
 
 import useClickOutside from '~/hooks/useClickOutside';
-import type { Post, PostsResponse } from '~/types/Post';
+import type { PostsResponse } from '~/types/Post';
+import FoundPostItem from './FoundPostItem';
 
 type SearchModalProps = {
   isOpen: boolean;
@@ -45,7 +46,7 @@ export default function SearchModal({ onClose }: SearchModalProps) {
           <div className="overflow-y-auto mb-8 w-full max-w-[640px] mx-auto">
             {fetcher.data.posts.length > 0 ? (
               fetcher.data.posts.map((post) => (
-                <SearchResultItem key={post.id} post={post} />
+                <FoundPostItem key={post.id} post={post} />
               ))
             ) : (
               <div className="pt-4">No results found</div>
@@ -53,23 +54,6 @@ export default function SearchModal({ onClose }: SearchModalProps) {
           </div>
         )}
       </div>
-    </div>
-  );
-}
-
-function SearchResultItem({ post }: { post: Post }) {
-  const contentPreview = post.content.substring(0, 150) + '...';
-
-  return (
-    <div className="not-last:border-b border-gray-300 dark:border-gray-800">
-      <Link to={`/posts/${post.id}`} className="hover:cursor-pointer">
-        <div className="py-6 pr-6">
-          <p className="text-lg font-bold mb-4">{post.title}</p>
-          <p className="text-sm text-gray-700 dark:dark:text-gray-400">
-            {contentPreview}
-          </p>
-        </div>
-      </Link>
     </div>
   );
 }
