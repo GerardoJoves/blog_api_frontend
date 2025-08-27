@@ -7,9 +7,14 @@ import { Menu, X } from 'lucide-react';
 type HeaderProps = {
   isMenuOpen: boolean;
   onToggleMenu: () => void;
+  onOpenSearchModal: () => void;
 };
 
-export default function Header({ onToggleMenu, isMenuOpen }: HeaderProps) {
+export default function Header({
+  onToggleMenu,
+  isMenuOpen,
+  onOpenSearchModal,
+}: HeaderProps) {
   return (
     <header
       className={`relative z-10 bg-white dark:bg-gray-950 ${isMenuOpen ? '' : 'border-b'} border-neutral-400 dark:border-gray-700`}
@@ -22,7 +27,7 @@ export default function Header({ onToggleMenu, isMenuOpen }: HeaderProps) {
           </div>
         </div>
         <div className="flex ml-auto items-center gap-4">
-          <Actions />
+          <Actions onOpenSearchModal={onOpenSearchModal} />
           <div className="hidden md:block">
             <AuthNav />
           </div>

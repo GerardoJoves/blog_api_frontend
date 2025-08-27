@@ -6,14 +6,21 @@ type FetchPaginatedPostsProps = {
   limit?: number;
   page?: number;
   sort?: 'desc_created' | 'asc_created';
+  q?: string;
 };
 
 export async function fetchPaginatedPosts({
   limit = 9,
-  page = 1,
-  sort = 'desc_created',
+  page,
+  sort,
+  q,
 }: FetchPaginatedPostsProps) {
-  const url = API_HOST + `/posts?limit=${limit}&sort=${sort}&page=${page}`;
+  const params = [['limit', String(limit)]];
+  if (page) params.push(['page', String(page)]);
+  if (sort) params.push(['sort', sort]);
+  if (q) params.push(['keyword', q]);
+  const searchParams = new URLSearchParams(params);
+  const url = `${API_HOST}/posts?${searchParams}`;
   const res = await fetch(url);
   const jsonRes = await res.json();
   if (!res.ok) throw new Error('Failed to fetch posts');

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useNavigation } from 'react-router';
 import type { Route } from './+types/defaultLayout';
 import jwt from 'jsonwebtoken';
@@ -9,6 +9,9 @@ import { tokenCookie } from '~/cookies.server';
 import UserContext from '~/components/UserContext';
 import { userTokenPayloadSchema } from '~/types/User';
 import MobileMenu from '~/components/MobileMenu';
+import SearchModal from '~/components/SearchModal';
+import usePreventBodyScroll from '~/hooks/usePreventBodyScroll';
+import useOnBreakpointMatch from '~/hooks/useOnBreakpointMatch';
 
 export async function loader({ request }: Route.LoaderArgs) {
   let user = null;
@@ -25,23 +28,21 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const navigation = useNavigation();
   const { user } = loaderData;
 
-  useEffect(() => {
-    if (navigation.state !== 'idle') setIsMenuOpen(false);
-  }, [navigation.state]);
+  const mdBreakpoint = '(width >= 48rem)';
+  const handleCloseMenu = useCallback(() => setIsMenuOpen(false), []);
+  useOnBreakpointMatch(mdBreakpoint, handleCloseMenu);
+  usePreventBodyScroll(isMenuOpen || isSearchModalOpen);
 
   useEffect(() => {
-    const body = document.body;
-    if (isMenuOpen) {
-      body.classList.add('overflow-y-hidden');
-      body.classList.add('md:overflow-y-auto');
-    } else {
-      body.classList.remove('overflow-y-hidden');
-      body.classList.remove('md:overflowy-auto');
+    if (navigation.state !== 'idle') {
+      setIsMenuOpen(false);
+      setIsSearchModalOpen(false);
     }
-  }, [isMenuOpen]);
+  }, [navigation.state]);
 
   return (
     <UserContext value={user}>
@@ -49,7 +50,14 @@ export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
         <Header
           onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
           isMenuOpen={isMenuOpen}
+          onOpenSearchModal={() => setIsSearchModalOpen(true)}
         />
+        {isSearchModalOpen && (
+          <SearchModal
+            isOpen={isSearchModalOpen}
+            onClose={() => setIsSearchModalOpen(false)}
+          />
+        )}
         {isMenuOpen && <MobileMenu />}
       </div>
       <main className="w-full max-w-7xl mx-auto">

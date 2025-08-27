@@ -20,6 +20,7 @@ const searchParamsSchema = z.object({
     .pipe(z.number().int().positive())
     .optional(),
   sort: z.enum(['desc_created', 'asc_created']).default('desc_created'),
+  q: z.string().optional(),
 });
 
 export async function loader({ request }: Route.LoaderArgs) {
