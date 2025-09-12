@@ -33,7 +33,7 @@ export default function Post({ loaderData }: Route.ComponentProps) {
             <PostMeta post={post} />
           </div>
           <div className="mb-10 rounded-lg overflow-hidden">
-            <img src="/default_featured_image.jpg" alt="featured image" />
+            <img src={post.featuredImg} alt="featured image" />
           </div>
           <div className="mb-10 lg:text-lg">{post.content}</div>
           <h2 className="mb-8 text-xl font-bold">Comments</h2>

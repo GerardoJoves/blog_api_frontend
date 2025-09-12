@@ -12,7 +12,7 @@ export default function PostCard({ post }: { post: Post }) {
       <Link to={postPath}>
         <img
           className="rounded-lg mb-2"
-          src="/default_featured_image.jpg"
+          src={post.featuredImg}
           alt="featured image"
         />
       </Link>
