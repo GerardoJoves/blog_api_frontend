@@ -11,7 +11,7 @@ export default function PostCard({ post }: { post: Post }) {
     <div className="p-4 border rounded-lg border-neutral-400 dark:border-gray-700">
       <Link to={postPath}>
         <img
-          className="rounded-lg mb-2"
+          className="rounded-lg mb-2 aspect-[1.91/1] object-fit w-full"
           src={post.featuredImg}
           alt="featured image"
         />
