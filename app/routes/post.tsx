@@ -1,4 +1,6 @@
 import { data } from 'react-router';
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
 import type { Route } from './+types/post';
 import * as z from 'zod';
 
@@ -21,6 +23,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function Post({ loaderData }: Route.ComponentProps) {
   const { post } = loaderData;
+  const parsedContent = DOMPurify.sanitize(
+    marked.parse(post.content, { async: false }),
+  );
 
   return (
     <>
@@ -35,7 +40,10 @@ export default function Post({ loaderData }: Route.ComponentProps) {
           <div className="mb-10 rounded-lg overflow-hidden">
             <img src={post.featuredImg} alt="featured image" />
           </div>
-          <div className="mb-10 lg:text-lg">{post.content}</div>
+          <div
+            className="mb-10 lg:text-lg post-content"
+            dangerouslySetInnerHTML={{ __html: parsedContent }}
+          />
           <h2 className="mb-8 text-xl font-bold">Comments</h2>
           <CommentSection postId={post.id} />
         </div>
