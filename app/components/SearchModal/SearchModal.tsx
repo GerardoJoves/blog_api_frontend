@@ -1,4 +1,4 @@
-import { Search, X } from 'lucide-react';
+import { LoaderCircle, Search, X } from 'lucide-react';
 import { useFetcher } from 'react-router';
 
 import useClickOutside from '~/hooks/useClickOutside';
@@ -42,7 +42,12 @@ export default function SearchModal({ onClose }: SearchModalProps) {
             <X />
           </button>
         </div>
-        {fetcher.data && (
+        {fetcher.state === 'loading' && (
+          <div className="py-4">
+            <LoaderCircle size={20} className="spin mx-auto" />
+          </div>
+        )}
+        {fetcher.state === 'idle' && fetcher.data && (
           <div className="overflow-y-auto mb-8 w-full max-w-[640px] mx-auto">
             {fetcher.data.posts.length > 0 ? (
               fetcher.data.posts.map((post) => (
