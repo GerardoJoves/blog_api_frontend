@@ -1,9 +1,9 @@
 import * as z from 'zod';
 import type { Route } from './+types/posts';
-import { data } from 'react-router';
+import { data, Link } from 'react-router';
 
 import PostsContainer from '~/components/PostsContainer';
-import NavDropdown from '~/components/NavDropdown';
+import Dropdown from '~/components/Dropdown';
 import PaginationControl from '~/components/PaginationControl';
 import type { Page } from '~/components/PaginationControl';
 import { fetchPaginatedPosts } from '~/api/post';
@@ -39,13 +39,21 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
   const sortOptions = [
     {
       name: 'Newest',
-      path: '/posts',
       isActive: sort === 'desc_created',
+      el: (
+        <Link to="?desc_created" className="block">
+          Newest
+        </Link>
+      ),
     },
     {
       name: 'Oldest',
-      path: '/posts?sort=asc_created',
       isActive: sort === 'asc_created',
+      el: (
+        <Link to="?sort=asc_created" className="block">
+          Oldest
+        </Link>
+      ),
     },
   ];
 
@@ -71,7 +79,12 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
           <div className="flex gap-2 items-center">
             <span className="w-max">Sort by</span>
             <div className="w-32">
-              <NavDropdown options={sortOptions} />
+              <Dropdown
+                trigger={
+                  sortOptions.find((op) => op.isActive === true)?.name ?? ''
+                }
+                options={sortOptions}
+              />
             </div>
           </div>
         </div>
