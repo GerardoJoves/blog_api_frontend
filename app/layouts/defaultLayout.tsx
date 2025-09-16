@@ -52,7 +52,7 @@ export default function DefaultLayout({ loaderData }: Route.ComponentProps) {
   return (
     <UserContext value={user}>
       <div className="sticky top-0 z-20">
-        <LoadingBar color="blue" ref={loadingBarRef} shadow={false} />
+        <LoadingBar color="#00BFFF" ref={loadingBarRef} shadow={false} />
         <Header
           onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
           isMenuOpen={isMenuOpen}
