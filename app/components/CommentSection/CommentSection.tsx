@@ -73,6 +73,11 @@ export default function CommentSection({ postId }: { postId: number }) {
         </div>
       ) : (
         <div>
+          {data.comments.length === 0 && (
+            <p className="text-center text-gray-700 dark:dark:text-gray-400">
+              This space is empty! Leave a comment to start the conversation.
+            </p>
+          )}
           {data.comments.map((comment) => (
             <Comment key={comment.id} comment={comment} parentId={comment.id} />
           ))}
