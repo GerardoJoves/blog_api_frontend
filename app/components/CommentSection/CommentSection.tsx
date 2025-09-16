@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
 import { useFetcher } from 'react-router';
 
 import Comment from './Comment';
@@ -10,7 +11,7 @@ import type { PaginatedComments } from '~/types/Comment';
 type sortOrder = 'desc_created' | 'asc_created';
 
 export default function CommentSection({ postId }: { postId: number }) {
-  const { load, data } = useFetcher<PaginatedComments>();
+  const { load, data, state } = useFetcher<PaginatedComments>();
   const [sort, setSort] = useState<sortOrder>('desc_created');
   const route = `/comments`;
 
@@ -49,8 +50,6 @@ export default function CommentSection({ postId }: { postId: number }) {
     load(`${route}?${searchParams.toString()}`);
   }, [load, route, sort, postId]);
 
-  if (!data) return <></>;
-  const { comments, hasMore, nextCursor } = data;
   return (
     <div>
       <div className="flex mb-10 justify-between items-center flex-wrap gap-6">
@@ -68,18 +67,26 @@ export default function CommentSection({ postId }: { postId: number }) {
         </div>
       </div>
       <CommentForm action={route} postId={postId} />
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} parentId={comment.id} />
-      ))}
-      {hasMore && nextCursor && (
-        <LoadMoreButton
-          route={route}
-          context={{ postId }}
-          cursor={nextCursor}
-          sort={sort}
-        >
-          Show more comments
-        </LoadMoreButton>
+      {!data || state === 'loading' ? (
+        <div className="py-4">
+          <LoaderCircle size={20} className="spin mx-auto" />
+        </div>
+      ) : (
+        <div>
+          {data.comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} parentId={comment.id} />
+          ))}
+          {data.hasMore && data.nextCursor && (
+            <LoadMoreButton
+              route={route}
+              context={{ postId }}
+              cursor={data.nextCursor}
+              sort={sort}
+            >
+              Show more comments
+            </LoadMoreButton>
+          )}
+        </div>
       )}
     </div>
   );
