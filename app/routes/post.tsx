@@ -44,7 +44,6 @@ export default function Post({ loaderData }: Route.ComponentProps) {
             className="mb-10 lg:text-lg post-content"
             dangerouslySetInnerHTML={{ __html: parsedContent }}
           />
-          <h2 className="mb-8 text-xl font-bold">Comments</h2>
           <CommentSection postId={post.id} />
         </div>
       </div>
